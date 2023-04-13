@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(untitled VERSION 0.1 LANGUAGES CXX)
+project(our_project LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS PrintSupport REQUIRED)
 
 
 set (SOURCE
@@ -20,15 +21,24 @@ set (SOURCE
     ./source/main.cpp
     ./source/Forward_fourier_decomposer.cpp
     ./source/Signal.cpp
+    ./qcustomplot.cpp
+    ./source/graph.cpp
+    ./source/oscilloscope.cpp
+    ./source/main_controller.cpp
     )
 set (HEADERS
     ./headers/mainwindow.h
     ./headers/Forward_fourier_decomposer.h
     ./headers/Signal.h
+    ./qcustomplot.h
+    ./headers/graph.h
+    ./headers/oscilloscope.h
+    ./headers/main_controller.h
     )
 
 set(PROJECT_SOURCES
         mainwindow.ui
+        ./source/graph.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -54,15 +64,15 @@ else()
     endif()
 endif()
 
-target_link_libraries(untitled PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(untitled PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt${QT_VERSION_MAJOR}::PrintSupport )
 
-set_target_properties(untitled PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
+#set_target_properties(untitled PROPERTIES
+#    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+#    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+#    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+#    MACOSX_BUNDLE TRUE
+#    WIN32_EXECUTABLE TRUE
+#)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(untitled)
