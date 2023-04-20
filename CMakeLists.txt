@@ -25,6 +25,8 @@ set (SOURCE
     ./source/graph.cpp
     ./source/oscilloscope.cpp
     ./source/main_controller.cpp
+    ./source/block.cpp
+    ./source/generator.cpp
     )
 set (HEADERS
     ./headers/mainwindow.h
@@ -34,6 +36,8 @@ set (HEADERS
     ./headers/graph.h
     ./headers/oscilloscope.h
     ./headers/main_controller.h
+    ./headers/block.h
+    ./headers/generator.h
     )
 
 set(PROJECT_SOURCES
@@ -64,7 +68,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(untitled PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt${QT_VERSION_MAJOR}::PrintSupport )
+target_link_libraries(untitled PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt${QT_VERSION_MAJOR}::PrintSupport)
 
 #set_target_properties(untitled PROPERTIES
 #    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

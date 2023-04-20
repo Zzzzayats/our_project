@@ -1,13 +1,19 @@
-#include "main_controller.h"
+#include "../headers/main_controller.h"
 #include<QQueue>
 
 
-main_controller::main_controller()
+Main_Controller::Main_Controller()
 {
 
 }
 
-void main_controller::startCircuit()
+
+void Main_Controller::addGenerator(Generator* generator)
+{
+    Generators.push_back(generator);
+}
+
+void Main_Controller::startCircuit()
 {
     QQueue<Block*> queue;
     for (int i = 0; i < Generators.size(); i++)
@@ -18,14 +24,18 @@ void main_controller::startCircuit()
     while (!queue.isEmpty())
     {
         Block* temp_block = queue.dequeue();
-        Signal* outSignal = temp_block->work();
-        Block* out = temp_block->getOut();
-        for (Block* block : out)
+        temp_block->work();
+        Signal* outSignal = temp_block->getSignal();
+        vector <Block*> out = temp_block->getOutput();
+        if (!out.empty())
         {
-            out->setSignal(outSignal);
-            if (out->ready())
+            for (Block* block : out)
             {
-                queue.enqueue(out);
+                block->setSignal(outSignal);
+                if (block->ready())
+                {
+                    queue.enqueue(block);
+                }
             }
         }
     }

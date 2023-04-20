@@ -1,11 +1,18 @@
 #ifndef MAIN_CONTROLLER_H
 #define MAIN_CONTROLLER_H
+#include<QQueue>
+#include"generator.h"
 
-
-class main_controller
+class Main_Controller
 {
 public:
-    main_controller();
+    Main_Controller();
+    void startCircuit();
+    void addGenerator(Generator* generator);
+
+private:
+    vector<Generator *> Generators;
+    //vector<Block *> Blocks;
 };
 
 #endif // MAIN_CONTROLLER_H
